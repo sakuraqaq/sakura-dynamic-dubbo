@@ -1,0 +1,22 @@
+server:
+  port: 8300
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+      url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/sakuratest?allowPublicKeyRetrieval=true
+      username: sakura01
+      password: sakura01
+      driver-class-name: com.mysql.cj.jdbc.Driver
+dubbo:
+  application:
+    name: sakura-http
+  registry:
+    address: nacos://127.0.0.1:5201
+  protocol:
+    name: dubbo
+  scan:
+    base-packages: com.sakura.controller
+  qos:
+    port: 20880
