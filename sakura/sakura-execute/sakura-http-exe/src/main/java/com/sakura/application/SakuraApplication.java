@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EnableDubbo
 @SpringBootApplication
-@ComponentScan({"com.sakura"})
+@ComponentScan({"com.sakura.controller"})
 public class SakuraApplication {
 
     public static void main(String[] args) {
