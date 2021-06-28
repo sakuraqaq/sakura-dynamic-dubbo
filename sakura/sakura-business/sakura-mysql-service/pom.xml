@@ -29,7 +29,7 @@
         <repository>
             <id>central</id>
             <name>aliyun maven</name>
-            <url>https://packages.aliyun.com/maven/repository/2105367-release-rSjQEz</url>
+            <url></url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
