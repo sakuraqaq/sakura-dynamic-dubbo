@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common-sakura</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
