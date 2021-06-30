@@ -19,6 +19,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.sakura.farme</groupId>
+            <artifactId>com-sakura-farme</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
             <version>0.6.1</version>
@@ -29,7 +35,7 @@
         <repository>
             <id>central</id>
             <name>aliyun maven</name>
-            <url></url>
+            <url>https://packages.aliyun.com/maven/repository/2105367-release-rSjQEz</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>

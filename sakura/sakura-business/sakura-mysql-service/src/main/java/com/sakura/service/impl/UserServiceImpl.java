@@ -1,5 +1,7 @@
 package com.sakura.service.impl;
 
+import com.sakura.blog.myblog.farme.wapper.QueryWrapper;
+import com.sakura.entity.User;
 import com.sakura.mapper.UserMapper;
 import com.sakura.service.UserService;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -20,8 +22,7 @@ public class UserServiceImpl implements UserService {
     @GlobalTransactional
     @Override
     public String getUser() {
-
-        return "获取用户成功" + "\r\n" + userMapper.selectById(1L);
+        return "获取用户成功" + "\r\n" + userMapper.selectOne(new QueryWrapper<User>().eq(User::getUserId,1L));
     }
 
 }
