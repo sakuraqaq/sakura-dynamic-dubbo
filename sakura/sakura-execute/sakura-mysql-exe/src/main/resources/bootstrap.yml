@@ -1,0 +1,21 @@
+
+dubbo:
+  registry:
+    address: spring-cloud://127.0.0.1
+  scan:
+    base-packages: com.sakura.service.impl
+  protocol:
+    name: dubbo
+    port: 20880
+
+spring:
+  application:
+    name: dubbo-provider
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:4396
+
+

@@ -1,22 +1,22 @@
 server:
   port: 8300
 
-spring:
-  main:
-    allow-bean-definition-overriding: true
-  datasource:
-      url:
-      username:
-      password:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-dubbo:
-  application:
-    name: sakura-http
-  registry:
-    address: nacos://127.0.0.1:5201
-  protocol:
-    name: dubbo
-  scan:
-    base-packages: com.sakura.controller
-  qos:
-    port: 20880
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  datasource:
+#      url:
+#      username:
+#      password:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#dubbo:
+#  application:
+#    name: sakura-http
+#  registry:
+#    address: nacos://127.0.0.1:5201
+#  protocol:
+#    name: dubbo
+#  scan:
+#    base-packages: com.sakura.controller
+#  qos:
+#    port: 20880

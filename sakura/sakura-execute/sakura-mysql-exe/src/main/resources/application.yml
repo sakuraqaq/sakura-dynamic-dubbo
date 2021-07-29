@@ -1,25 +1,15 @@
 server:
   port: 8001 # 项目端口
 
-spring:
-  application:
-    name: sakura-mysql-service # 项目名称
-  main:
-    allow-bean-definition-overriding: true
-  datasource:
-    url:
-    username:
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#dubbo:
+#  application:
+#    name: sakura-service
+#  registry:
+#    address: nacos://127.0.0.1:5201
+#  scan:
+#    base-packages: com.sakura.service.impl
+#  protocols:
+#    dubbo:
+#      name: dubbo
+#      port: 20880
 
-dubbo:
-  application:
-    name: sakura-service
-  registry:
-    address: nacos://127.0.0.1:5201
-  scan:
-    base-packages: com.sakura.service.impl
-  protocols:
-    dubbo:
-      name: dubbo
-      port: 20880
