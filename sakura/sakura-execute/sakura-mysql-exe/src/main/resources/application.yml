@@ -1,15 +1,58 @@
-server:
-  port: 8001 # 项目端口
 
-#dubbo:
-#  application:
-#    name: sakura-service
-#  registry:
-#    address: nacos://127.0.0.1:5201
-#  scan:
-#    base-packages: com.sakura.service.impl
-#  protocols:
-#    dubbo:
-#      name: dubbo
-#      port: 20880
+dubbo:
+  application:
+    name: sakura-provider
+  registry:
+    address: nacos://127.0.0.1:4399?username=nacos&password=nacos
+  scan:
+    base-packages: com.sakura.service
+  metadata-report:
+    address: nacos://127.0.0.1:4399?username=nacos&password=nacos
+  protocol:
+    serialization: kryo
+    name: dubbo
+
+
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  shardingsphere:
+    datasource:
+      names: sharding-order-system
+      sharding-order-system:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/sakuratest?allowPublicKeyRetrieval=true
+        username: sakura01
+        password: sakura01
+    props:
+      # 日志显示SQL
+      sql.show: true
+    sharding:
+      tables:
+        # 订单表 分表：20
+        shard_order:
+          # 真实表 order_0
+          actualDataNodes: sharding-order-system.shard_order
+          # 分库策略
+          databaseStrategy:
+            none:
+          # 分表策略
+          tableStrategy:
+            inline:
+              shardingColumn: project_id
+              # 分片算法行表达式，需符合groovy语法 '& Integer.MAX_VALUE' 位运算使hash值为正数
+              algorithmExpression: sakura_order${project_id % 2}
+
+
+#  registries:
+#    provider1:
+#      registry:
+#      address: nacos://127.0.0.1:4399?username=nacos&password=nacos
+#    provider2:
+#      registry:
+#      address: nacos://127.0.0.1:4396?username=nacos&password=nacos&namespace=test
 
