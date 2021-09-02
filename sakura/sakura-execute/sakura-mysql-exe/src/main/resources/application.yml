@@ -22,17 +22,9 @@ spring:
     datasource:
       names: sharding-order-system1, sharding-order-system2 #数据源名称
       sharding-order-system1:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/aichidoubao01?allowPublicKeyRetrieval=true
-        username: sakura01
-        password: sakura01
+
       sharding-order-system2:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/aichidoubao02?allowPublicKeyRetrieval=true
-        username: sakura01
-        password: sakura01
+
     props:
       # 日志显示SQL
       sql.show: true
