@@ -1,9 +1,11 @@
 package com.sakura.controller;
 
 
-import com.sakura.service.UserService;
+import com.sakura.enity.Paper;
+import com.sakura.enity.SakuraOrder;
+import com.sakura.service.OrderService;
+import com.sakura.service.PaperService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @DubboReference
-    private UserService userService;
+    private OrderService orderService;
+
+    @DubboReference
+    private PaperService paperService;
 
     @GetMapping("/users")
     public String getUser()
     {
-        userService.getUser();
-        return "nihao";
+        SakuraOrder sakuraOrder = orderService.selectOrder(2134186429292544l, 2134186429292544l);
+        //SakuraOrder sakuraOrder1 = orderService.selectOrder(2134186429292543l, 2134186429292543l);
+        return sakuraOrder.toString();
     }
 
 

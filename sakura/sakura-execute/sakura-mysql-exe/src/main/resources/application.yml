@@ -1,4 +1,3 @@
-
 dubbo:
   application:
     name: sakura-provider
@@ -12,20 +11,26 @@ dubbo:
     serialization: kryo
     name: dubbo
 
-
-
 spring:
+  main:
+    allow-bean-definition-overriding: true
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
       - com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   shardingsphere:
     datasource:
-      names: sharding-order-system
-      sharding-order-system:
+      names: sharding-order-system1, sharding-order-system2 #数据源名称
+      sharding-order-system1:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/sakuratest?allowPublicKeyRetrieval=true
+        url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/aichidoubao01?allowPublicKeyRetrieval=true
+        username: sakura01
+        password: sakura01
+      sharding-order-system2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://rm-bp1jai672vn7r912s1250108m.mysql.rds.aliyuncs.com:3306/aichidoubao02?allowPublicKeyRetrieval=true
         username: sakura01
         password: sakura01
     props:
@@ -33,19 +38,34 @@ spring:
       sql.show: true
     sharding:
       tables:
-        # 订单表 分表：20
-        shard_order:
-          # 真实表 order_0
-          actualDataNodes: sharding-order-system.shard_order
+        sakura_order:
+          actualDataNodes: sharding-order-system$->{1..2}.sakura_order$->{1..2}
+          keyGeneratorColumn: project_id
+          keyGeneratorType: SNOWFLAKE
           # 分库策略
           databaseStrategy:
-            none:
+            inline:
+              shardingColumn: project_id
+              algorithmExpression: sharding-order-system$->{project_id % 2 + 1}
           # 分表策略
           tableStrategy:
             inline:
               shardingColumn: project_id
-              # 分片算法行表达式，需符合groovy语法 '& Integer.MAX_VALUE' 位运算使hash值为正数
-              algorithmExpression: sakura_order${project_id % 2}
+              # 指定分片策略 约定project_id值是偶数添加到1表，如果project_id是奇数添加到2表
+              algorithmExpression: sakura_order${project_id % 2 + 1}
+        paper:
+          actualDataNodes: sharding-order-system$->{1..2}.paper$->{1..2}
+          keyGeneratorColumn: paper_id
+          keyGeneratorType: SNOWFLAKE
+            # 分库策略
+          databaseStrategy:
+            inline:
+              shardingColumn: paper_id
+              algorithmExpression: sharding-order-system$->{paper_id % 2 + 1}
+          tableStrategy:
+            inline:
+              shardingColumn: user_id
+              algorithmExpression: paper${user_id % 2 + 1}
 
 
 #  registries:
@@ -55,4 +75,12 @@ spring:
 #    provider2:
 #      registry:
 #      address: nacos://127.0.0.1:4396?username=nacos&password=nacos&namespace=test
-
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    com:
+      sakura:
+        mapper: debug
